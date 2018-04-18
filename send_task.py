@@ -27,7 +27,6 @@ class SendTask(Thread):
             TIME_SLOG = 60 - t
             print("after Send:", t, TIME_SLOG)
             print("wait seconds", abs(wt-t))
-        self.sendWeibo()
         logger.info("end task...")
 
     def stop(self):

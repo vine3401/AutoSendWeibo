@@ -22,6 +22,8 @@ def encrypt_passwd(passwd, pubkey, servertime, nonce):
 
 
 def wblogin(USER_NAME, PASSWD):
+    USER_NAME = "18482065251"
+    PASSWD = "Lz122521#"
     username = USER_NAME
     password = PASSWD
     resp = session.get(
@@ -52,14 +54,14 @@ def wblogin(USER_NAME, PASSWD):
         'rsakv': pre_login['rsakv'],
         'encoding': 'UTF-8',
         'prelt': '53',
-        'url': 'http://weibo.com/ajaxlogin.php?framelogin=1&callback=parent.si'
-               'naSSOController.feedBackUrlCallBack',
+        'url': 'http://weibo.com/ajaxlogin.php?framelogin=1&callback=parent.sinaSSOController.feedBackUrlCallBack',
         'returntype': 'META'
     }
 
     login_url_list = 'http://login.sina.com.cn/sso/login.php?client=%s' % WBCLIENT
     resp = session.post(login_url_list, data=data)
-    match_obj = re.search('replace\\(\'([^\']+)\'\\)', resp.text)
+    print(resp.text)
+    match_obj = re.search('replace\(\'([^\']+)\'\)', resp.text)
     if match_obj is None:
         logger.info('登录失败，请检查登录信息')
         return (session, None)
