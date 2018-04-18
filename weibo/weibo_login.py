@@ -68,7 +68,7 @@ def wblogin(USER_NAME, PASSWD):
 
     login_url = match_obj.group(1)
     resp = session.get(login_url)
-    login_str = login_str = re.search('\((\{.*\})\)', resp.text).group(1)
+    login_str = re.search('\((\{.*\})\)', resp.text).group(1)
     login_info = json.loads(login_str)
     logger.info("login success：[%s]" % str(login_info))
     uniqueid = login_info["userinfo"]["uniqueid"]
