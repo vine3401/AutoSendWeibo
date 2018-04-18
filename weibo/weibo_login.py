@@ -7,7 +7,7 @@ import binascii
 import rsa
 import requests
 from config import WBCLIENT, USER_AGENT
-from config import USER_NAME, PASSWD
+# from config import USER_NAME, PASSWD
 from logger import logger
 
 session = requests.session()
@@ -21,7 +21,7 @@ def encrypt_passwd(passwd, pubkey, servertime, nonce):
     return binascii.b2a_hex(passwd)
 
 
-def wblogin():
+def wblogin(USER_NAME, PASSWD):
     username = USER_NAME
     password = PASSWD
     resp = session.get(

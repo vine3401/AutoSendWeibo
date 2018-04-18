@@ -51,7 +51,7 @@ class WeiboSender(object):
             pid = self.upload_image_stream(image)
             if pid:
                 pids += " " + pid
-            time.sleep(10)
+            # time.sleep(10)
         return pids.strip()
 
     def upload_image_stream(self, image_url):
