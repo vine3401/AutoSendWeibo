@@ -60,13 +60,15 @@ def wblogin(USER_NAME, PASSWD):
 
     login_url_list = 'http://login.sina.com.cn/sso/login.php?client=%s' % WBCLIENT
     resp = session.post(login_url_list, data=data)
-    match_obj = re.search('replace\(\'([^\']+)\'\)', resp.text)
+    print(resp.text)
+    match_obj = re.search('replace\\(\"([^\']+)\"\\)', resp.text)
     if match_obj is None:
         logger.info('登录失败，请检查登录信息')
         return (session, None)
 
     login_url = match_obj.group(1)
     resp = session.get(login_url)
+    print(resp.text)
     login_str = re.search('\((\{.*\})\)', resp.text).group(1)
     login_info = json.loads(login_str)
     logger.info("login success：[%s]" % str(login_info))

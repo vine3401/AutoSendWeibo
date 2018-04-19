@@ -49,25 +49,14 @@ def wblogin(username="18482065251",password="Lz122521#"):
   resp = session.post(login_url, data=data)
   match_obj = re.search('replace\(\"([^\']+)\"\)', resp.text)
   if match_obj is None:
-    print("失败")
+    print("failure")
   login_url = match_obj.group(1)
   resp = session.get(login_url)
+  print(resp.text)
   login_str = re.search('replace\(\'([^\']+)\'\)', resp.text).group(1)
   resp = session.get(login_str)
   content = re.search('\((\{.*\})\)', resp.text).group(1)
   user = json.loads(content)
   uid = user.get("userinfo").get("uniqueid")
-  data = {
-      "location": "v6_content_home",
-      "appkey": "",
-      "style_type": "1",
-      "pic_id": "",
-      "text": "Something interesting",
-      "pdetail": "",
-      "rank": "0",
-      "rankid": "",
-      "module": "stissue",
-      "pub_type": "dialog",
-      "_t": "0",
-  }
+  print(uid)
 wblogin()
