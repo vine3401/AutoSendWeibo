@@ -20,7 +20,7 @@ class SendTask(Thread):
         t = time.localtime(time.time()).tm_min
         TIME_SLOG = 60 - t
         print("before Send:", t, TIME_SLOG)
-        while not self.stopped.wait(TIME_SLOG*60):
+        while not self.stopped.wait(TIME_SLOG):
             wt = time.localtime(time.time()).tm_min
             self.sendWeibo()
             t = time.localtime(time.time()).tm_min
