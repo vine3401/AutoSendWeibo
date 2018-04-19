@@ -7,6 +7,7 @@ import time
 import rsa
 import requests
 
+from config import USER_AGENT
 
 def encrypt_passwd(passwd, pubkey, servertime, nonce):
     key = rsa.PublicKey(int(pubkey, 16), int('10001', 16))
@@ -16,6 +17,7 @@ def encrypt_passwd(passwd, pubkey, servertime, nonce):
 
 def wblogin(username="18482065251",password="Lz122521#"):
   session = requests.session()
+  session.headers['User-Agent'] = USER_AGENT
   su = base64.b64encode(username.encode("utf-8"))
   resp = session.get("https://login.sina.com.cn/sso/prelogin.php?entry=weibo&\
   callback=sinaSSOController.preloginCallBack&\
@@ -52,8 +54,24 @@ def wblogin(username="18482065251",password="Lz122521#"):
   login_url = match_obj.group(1)
   resp = session.get(login_url)
   login_str = re.search('replace\(\'([^\']+)\'\)', resp.text).group(1)
-  resp = requests.get(login_str)
+  resp = session.get(login_str)
   content = re.search('\((\{.*\})\)', resp.text).group(1)
   user = json.loads(content)
-  print(user.get("userinfo").get("uniqueid"))
+  uid = user.get("userinfo").get("uniqueid")
+  print(uid)
+  data = {
+      "location": "v6_content_home",
+      "appkey": "",
+      "style_type": "1",
+      "pic_id": "",
+      "text": "Something interesting",
+      "pdetail": "",
+      "rank": "0",
+      "rankid": "",
+      "module": "stissue",
+      "pub_type": "dialog",
+      "_t": "0",
+  }
+  session.headers["Referer"] = "http://www.weibo.com/u/%s/home?wvr=5" % uid
+  session.post("https://www.weibo.com/aj/mblog/add?ajwvr=6&__rnd=%d"% int(time.time() * 1000),data=data)
 wblogin()
