@@ -18,16 +18,8 @@ class SendTask(Thread):
     def run(self):
         logger.info("start task...")
         self.sendWeibo()
-        t = time.localtime(time.time()).tm_min
-        TIME_SLOG = 60 - t
-        print("before Send:", t, TIME_SLOG)
         while not self.stopped.wait(TIME_SLOG):
-            wt = time.localtime(time.time()).tm_min
             self.sendWeibo()
-            t = time.localtime(time.time()).tm_min
-            TIME_SLOG = 60 - t
-            print("after Send:", t, TIME_SLOG)
-            print("wait seconds", abs(wt-t))
         logger.info("end task...")
 
     def stop(self):
