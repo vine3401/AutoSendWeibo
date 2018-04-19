@@ -2,12 +2,14 @@ import base64
 import binascii
 import re
 import json
-import time
 
 import rsa
 import requests
 
-from config import USER_AGENT
+USER_AGENT = (
+      'Mozilla/5.0 (Windows NT 5.1) AppleWebKit/536.11 (KHTML, like Gecko) '
+      'Chrome/20.0.1132.57 Safari/536.11'
+)
 
 def encrypt_passwd(passwd, pubkey, servertime, nonce):
     key = rsa.PublicKey(int(pubkey, 16), int('10001', 16))
@@ -19,10 +21,7 @@ def wblogin(username="18482065251",password="Lz122521#"):
   session = requests.session()
   session.headers['User-Agent'] = USER_AGENT
   su = base64.b64encode(username.encode("utf-8"))
-  resp = session.get("https://login.sina.com.cn/sso/prelogin.php?entry=weibo&\
-  callback=sinaSSOController.preloginCallBack&\
-  su=%s\
-  &rsakt=mod&checkpin=1&client=ssologin.js(v1.4.19)")
+  resp = session.get("https://login.sina.com.cn/sso/prelogin.php?entry=weibo&callback=sinaSSOController.preloginCallBack&su=%s&rsakt=mod&checkpin=1&client=ssologin.js(v1.4.19)" % su)
   pre_login_str = re.match(r'[^{]+({.+?})', resp.text).group(1)
   pre_login = json.loads(pre_login_str)
   data = {
@@ -58,7 +57,6 @@ def wblogin(username="18482065251",password="Lz122521#"):
   content = re.search('\((\{.*\})\)', resp.text).group(1)
   user = json.loads(content)
   uid = user.get("userinfo").get("uniqueid")
-  print(uid)
   data = {
       "location": "v6_content_home",
       "appkey": "",
@@ -72,6 +70,4 @@ def wblogin(username="18482065251",password="Lz122521#"):
       "pub_type": "dialog",
       "_t": "0",
   }
-  session.headers["Referer"] = "http://www.weibo.com/u/%s/home?wvr=5" % uid
-  session.post("https://www.weibo.com/aj/mblog/add?ajwvr=6&__rnd=%d"% int(time.time() * 1000),data=data)
 wblogin()
