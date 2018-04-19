@@ -117,6 +117,7 @@ def login(username, password):
   weibo_pa = r'<title>(.*?)</title>'
   userID = re.findall(weibo_pa, weibo_page.content.decode("utf-8", 'ignore'), re.S)[0]
   logger.info(u"欢迎你 %s, 登陆成功" % userID[:-3])
+  print(u"欢迎你 %s, 登陆成功" % userID[:-3])
   return session, uuid_res
 
 if __name__=='__main__':
