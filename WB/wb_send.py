@@ -1,6 +1,7 @@
 import re
 import time 
 import json
+from logger import logger
 
 url_text_send = "https://www.weibo.com/aj/mblog/add?ajwvr=6&__rnd=%d"
 url_pic_send = "http://picupload.service.weibo.com/interface/pic_upload.php?rotate=0&app=miniblog&s=json&mime=image/jpeg&data=1&wm="
@@ -38,3 +39,8 @@ def send_wb(session,text, url_pic):
   data = get_wb(pid, text)
   session.headers["Referer"] = Referer
   session.post(url_text_send % int(time.time() * 1000),data=data)
+  t = time.localtime(time.time())
+  t = str(t.tm_hour)+":"+str(t.tm_min)+":"+str(t.tm_sec)
+  logger.info("微博："+text)
+  print("微博：",text,t)
+

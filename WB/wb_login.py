@@ -9,6 +9,7 @@ from urllib.parse import quote_plus
 import rsa
 import requests
 
+from logger import logger
 
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0'
@@ -110,5 +111,9 @@ def login(username, password):
   uuid = login_index.text
   uuid_pa = r'"uniqueid":"(.*?)"'
   uuid_res = re.findall(uuid_pa, uuid, re.S)[0]
-  print(u"登录成功")
+  web_weibo_url = "http://weibo.com/%s/profile?topnav=1&wvr=6&is_all=1" % uuid_res
+  weibo_page = session.get(web_weibo_url, headers=headers)
+  weibo_pa = r'<title>(.*?)</title>'
+  userID = re.findall(weibo_pa, weibo_page.content.decode("utf-8", 'ignore'), re.S)[0]
+  logger.info(u"欢迎你 %s, 登陆成功" % userID[:-3])
   return session, uuid_res

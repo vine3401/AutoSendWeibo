@@ -13,7 +13,7 @@ WATERMARK_NIKE = "@微博"             # 水印名称
 WATERMARK_URL = "weibo.com"         # 水印链接
 
 # 日志设置
-LOG_FILE = False                    # 运行日志是否记录文件
+LOG_FILE = True                    # 运行日志是否记录文件
 
 # 系统设置
 WBCLIENT = 'ssologin.js(v1.4.18)'
