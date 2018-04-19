@@ -1,9 +1,10 @@
+# -*- coding: utf-8 -*-
+
 import time
 
-
-from wb_login import login
-from wb_get_data import get_data
-from wb_send import send_wb
+from WB.wb_login import login
+from WB.wb_get_data import get_data
+from WB.wb_send import send_wb
 
 (session, uid) = login("18482065251", "Lz122521#")
 while True:

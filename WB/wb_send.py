@@ -1,7 +1,9 @@
+# -*- coding: utf-8 -*-
+
 import re
 import time 
 import json
-from logger import logger
+from WB.logger import logger
 
 url_text_send = "https://www.weibo.com/aj/mblog/add?ajwvr=6&__rnd=%d"
 url_pic_send = "http://picupload.service.weibo.com/interface/pic_upload.php?rotate=0&app=miniblog&s=json&mime=image/jpeg&data=1&wm="

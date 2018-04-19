@@ -1,4 +1,5 @@
 # -*- encoding:utf-8 -*-
+
 import re
 import time
 import random
@@ -9,7 +10,7 @@ from urllib.parse import quote_plus
 import rsa
 import requests
 
-from logger import logger
+from WB.logger import logger
 
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0'
@@ -117,3 +118,6 @@ def login(username, password):
   userID = re.findall(weibo_pa, weibo_page.content.decode("utf-8", 'ignore'), re.S)[0]
   logger.info(u"欢迎你 %s, 登陆成功" % userID[:-3])
   return session, uuid_res
+
+if __name__=='__main__':
+  print('ok')
