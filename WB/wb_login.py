@@ -97,7 +97,7 @@ def login(username, password):
   if showpin == 0:
     login_page = session.post(login_url, data=postdata, headers=headers)
   else:
-      pcid = sever_data["pcid"]
+      pcid = login_info["pcid"]
       get_cha(pcid)
       postdata['door'] = input(u"请输入验证码")
       login_page = session.post(login_url, data=postdata, headers=headers)
