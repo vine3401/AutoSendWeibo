@@ -17,6 +17,7 @@ class SendTask(Thread):
 
     def run(self):
         logger.info("start task...")
+        self.sendWeibo()
         t = time.localtime(time.time()).tm_min
         TIME_SLOG = 60 - t
         print("before Send:", t, TIME_SLOG)

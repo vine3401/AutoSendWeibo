@@ -159,7 +159,7 @@ def login(username, password):
     # print(weibo_page.content.decode("utf-8"))
     userID = re.findall(weibo_pa, weibo_page.content.decode("utf-8", 'ignore'), re.S)[0]
     print(u"欢迎你 %s, 你在正在使用 xchaoinfo 写的模拟登录微博" % userID)
-    return session,uuid_pa
+    return session,uuid_res
 
 def sendWeibo( text,session,uid):
     data = {
@@ -179,6 +179,7 @@ def sendWeibo( text,session,uid):
     resp = session.post(
             "http://www.weibo.com/aj/mblog/add?ajwvr=6&__rnd=%d" % int(time.time() * 1000),
             data = data)
+    print("send success")
 
-
-login("18482065251", "Lz122521#")
+# new_session,id = login("18482065251", "Lz122521#")
+# sendWeibo("get it", new_session, id)
