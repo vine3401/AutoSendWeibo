@@ -33,8 +33,6 @@ while True:
         now_time_stamp = int(time_stamp)
         if t.tm_hour < 8:
             sec = abs(future_time_stamp_8 - now_time_stamp)
-        elif t.tm_hour < 12 and t.tm_min < 25:
-            sec = abs(future_time_stamp_12 - now_time_stamp)
         else:
             sec = abs(future_time_stamp_23 - now_time_stamp)
         time.sleep(sec)
