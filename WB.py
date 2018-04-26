@@ -7,9 +7,6 @@ from WB.wb_get_data import get_data
 from WB.wb_send import send_wb
 
 (session, uid) = login("18482065251", "Lz122521#")
-print("进程启动：")
-(text, url_pic) = get_data()
-send_wb(session, "进程重启，发送测试验证************\n"+text, url_pic)
 while True:
     t = time.localtime(time.time())
     if t.tm_sec == 0 and t.tm_min == 0 and t.tm_hour == 8:
@@ -33,6 +30,10 @@ while True:
         now_time_stamp = int(time_stamp)
         if t.tm_hour < 8:
             sec = abs(future_time_stamp_8 - now_time_stamp)
+        elif t.tm_hour < 12:
+            sec = abs(future_time_stamp_12 - now_time_stamp)
+        elif t.tm_hour == 12 and t.tm_min < 25:
+            sec = abs(future_time_stamp_12 - now_time_stamp)
         else:
             sec = abs(future_time_stamp_23 - now_time_stamp)
         time.sleep(sec)
