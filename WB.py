@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
-
-
 import os
+import sys
 import time
 from datetime import datetime
 from os import path as osp
@@ -18,9 +17,8 @@ if osp.exists(yaml_path):
     with open(yaml_path) as ysettings:
         locals().update(yaml.load(ysettings))
 
-(session, uid) = login(username, password)
-
 def send_job():
+    msg = "c"
     if datetime.now().hour == 8:
         msg = "早"
     elif datetime.now().hour == 12:
@@ -28,12 +26,17 @@ def send_job():
     elif datetime.now().hour == 23:
         msg = "晚"
     (text, url_pic) = get_data()
-    send_wb(session, "安！世界\n" % msg + text, url_pic)
+    message = msg+("安！世界\n") + text
+    send_wb(session, message, url_pic)
 
 if __name__ == '__main__':
+    print("name:",sys.argv[0])  
+    for i in range(1,len(sys.argv)):  
+        print("parameter",i,sys.argv[i])  
+    (session, uid) = login(username, password)
     scheduler = BlockingScheduler()
-    scheduler.add_job(send_job, 'cron', minute="8, 23")
-    scheduler.add_job(send_job, 'cron', minute="12", second='25')
+    scheduler.add_job(send_job, 'cron', hour="8, 23")
+    scheduler.add_job(send_job, 'cron', hour="12", minute="25")
     print('Press Ctrl+{0} to exit'.format('Break' if os.name == 'nt' else 'C'))
 
     try:
