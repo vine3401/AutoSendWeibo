@@ -18,7 +18,8 @@ if osp.exists(yaml_path):
         locals().update(yaml.load(ysettings))
 
 def send_job():
-    msg = "c"
+    (session, uid) = login(username, password)
+    msg = ""
     if datetime.now().hour == 8:
         msg = "早"
     elif datetime.now().hour == 12:
@@ -28,12 +29,12 @@ def send_job():
     (text, url_pic) = get_data()
     message = msg+("安！世界\n") + text
     send_wb(session, message, url_pic)
+    session.close()
 
 if __name__ == '__main__':
     print("name:",sys.argv[0])  
     for i in range(1,len(sys.argv)):  
-        print("parameter",i,sys.argv[i])  
-    (session, uid) = login(username, password)
+        print("parameter",i,sys.argv[i])
     scheduler = BlockingScheduler()
     scheduler.add_job(send_job, 'cron', hour="8, 23")
     scheduler.add_job(send_job, 'cron', hour="12", minute="25")
