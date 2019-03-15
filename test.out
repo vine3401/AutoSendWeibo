@@ -1,4 +1,5 @@
 nohup: ignoring input
-name: WB.py
-欢迎你 今朝有酒今朝醉---的微博, 登陆成功
-Press Ctrl+C to exit
+Traceback (most recent call last):
+  File "WB.py", line 9, in <module>
+    from apscheduler.schedulers.blocking import BlockingScheduler
+ImportError: No module named apscheduler.schedulers.blocking
