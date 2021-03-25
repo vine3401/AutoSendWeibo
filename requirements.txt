@@ -6,7 +6,7 @@ idna==2.6
 pkg-resources==0.0.0
 pyasn1==0.4.2
 pytz==2018.4
-PyYAML==3.12
+PyYAML==5.4
 requests==2.18.4
 rsa==3.4.2
 six==1.11.0
